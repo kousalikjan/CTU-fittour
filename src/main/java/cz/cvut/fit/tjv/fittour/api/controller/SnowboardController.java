@@ -24,9 +24,9 @@ public class SnowboardController
     }
 
     @PostMapping("/snowboards")
-    Snowboard newUser(@RequestBody Snowboard newSnowboard)
+    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
     {
-        return new Snowboard(newSnowboard.getId(),
+        return new SnowboardDto(newSnowboard.getId(),
                 newSnowboard.getBrand(),
                 newSnowboard.getModelName(),
                 newSnowboard.getProfile(),
@@ -35,7 +35,7 @@ public class SnowboardController
     }
 
     @GetMapping("/snowboards/{id}")
-    Snowboard one(@PathVariable String id)
+    SnowboardDto one(@PathVariable String id)
     {
         int newId = 0;
         try {
@@ -45,7 +45,7 @@ public class SnowboardController
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Invalid ID");
         }
-        return new Snowboard(newId,
+        return new SnowboardDto(newId,
                 "Nitro",
                 "Kleveland",
                 "ROCKER",
@@ -55,9 +55,9 @@ public class SnowboardController
 
 
     @PutMapping("/snowboards/{id}")
-    Snowboard updateSnowboard(@RequestBody Snowboard snowboardDto, @PathVariable int id)
+    SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
     {
-        return new Snowboard(1,
+        return new SnowboardDto(1,
                 "Updated",
                 "Snowboard",
                 "FLAT",

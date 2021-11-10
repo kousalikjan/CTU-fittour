@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
 import cz.cvut.fit.tjv.fittour.domain.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +12,10 @@ import java.util.Collection;
 public class RiderController
 {
     @GetMapping("/riders")
-    Collection<Rider> all()
+    Collection<RiderDto> all()
     {
-        ArrayList<Rider> res = new ArrayList<>();
-        res.add(new Rider(1,
+        ArrayList<RiderDto> res = new ArrayList<>();
+        res.add(new RiderDto(1,
                 "Marcus",
                 "Kleveland",
                 LocalDate.of(2001, 8, 24),
@@ -25,21 +26,21 @@ public class RiderController
     }
 
     @PostMapping("/riders")
-    Rider newRider(@RequestBody Rider newRider)
+    RiderDto newRider(@RequestBody RiderDto newRider)
     {
-        return new Rider();
+        return new RiderDto();
     }
 
     @GetMapping("/riders/{id}")
-    Rider one(@PathVariable int id)
+    RiderDto one(@PathVariable int id)
     {
-        return new Rider();
+        return new RiderDto();
     }
 
     @PutMapping("/riders/{id}")
-    Rider updateRider(@RequestBody Rider riderDto, @PathVariable int id)
+    RiderDto updateRider(@RequestBody RiderDto riderDto, @PathVariable int id)
     {
-        return new Rider();
+        return new RiderDto();
     }
 
     @DeleteMapping("/riders/{id}")

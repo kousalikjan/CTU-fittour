@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import cz.cvut.fit.tjv.fittour.api.dto.ContestDto;
 import cz.cvut.fit.tjv.fittour.domain.Contest;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
 import org.springframework.web.bind.annotation.*;
@@ -12,29 +13,29 @@ import java.util.Collection;
 public class ContestController
 {
     @GetMapping("/contests")
-    Collection<Contest> all()
+    Collection<ContestDto> all()
     {
-        ArrayList<Contest> res = new ArrayList<>();
-        res.add(new Contest(1, LocalDate.of(2020, 12, 6), "Aspen USA", 20000, "SLOPESTYLE", new ArrayList<Rider>()));
+        ArrayList<ContestDto> res = new ArrayList<>();
+        res.add(new ContestDto(1, LocalDate.of(2020, 12, 6), "Aspen USA", 20000, "SLOPESTYLE", new ArrayList<Rider>()));
         return res;
     }
 
     @PostMapping("/contests")
-    Contest newContest(@RequestBody Contest newContest)
+    ContestDto newContest(@RequestBody ContestDto newContest)
     {
-        return new Contest();
+        return new ContestDto();
     }
 
     @GetMapping("/contests/{id}")
-    Contest one(@PathVariable int id)
+    ContestDto one(@PathVariable int id)
     {
-        return new Contest();
+        return new ContestDto();
     }
 
     @PutMapping("/contests/{id}")
-    Contest updateContest(@RequestBody Contest contestDto, @PathVariable int id)
+    ContestDto updateContest(@RequestBody ContestDto contestDto, @PathVariable int id)
     {
-        return new Contest();
+        return new ContestDto();
     }
 
     @DeleteMapping("/contests/{id}")
