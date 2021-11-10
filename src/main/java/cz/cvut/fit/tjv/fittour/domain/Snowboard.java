@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.fittour.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity(name = "snowboard")
 public class Snowboard
@@ -15,15 +16,19 @@ public class Snowboard
     private int flex;
     private int price;
 
-
     public Snowboard()
     {
-
     }
 
-    public Snowboard(int id, String brand, String modelName, String profile, int flex, int price)
+    /**
+     * Saves given id in the instance.
+     *
+     * @param id given id; cannot be null
+     * @throws NullPointerException if the given id is null
+     */
+    public Snowboard(Integer id, String brand, String modelName, String profile, int flex, int price)
     {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
         this.brand = brand;
         this.modelName = modelName;
         this.profile = profile;

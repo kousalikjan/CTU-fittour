@@ -17,7 +17,7 @@ public class SnowboardController
     Collection<SnowboardDto> all()
     {
         ArrayList<Snowboard> res = new ArrayList<>();
-        res.add(new Snowboard(1, "Burton", "Spiral", "CAMBER", 7, 6000));
+        res.add(new Snowboard(null, "Burton", "Spiral", "CAMBER", 7, 6000));
         res.add(new Snowboard(2, "Nidecker", "Pamela Anderson", "HYBRID", 6, 7500));
 
         return SnowboardConverter.fromModelMany(res);
@@ -26,6 +26,8 @@ public class SnowboardController
     @PostMapping("/snowboards")
     SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
     {
+        System.out.println(newSnowboard.getId());
+
         return new SnowboardDto(newSnowboard.getId(),
                 newSnowboard.getBrand(),
                 newSnowboard.getModelName(),

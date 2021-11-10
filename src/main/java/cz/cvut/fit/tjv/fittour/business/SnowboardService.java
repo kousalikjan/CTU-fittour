@@ -15,6 +15,6 @@ public class SnowboardService extends AbstractCrudService<Integer, Snowboard, Sn
     @Override
     protected boolean exists(Snowboard entity)
     {
-        return false;
+        return repository.existsById(entity.getId());
     }
 }
