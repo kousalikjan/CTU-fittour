@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.fittour.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
 
 import java.time.LocalDate;
@@ -8,7 +9,10 @@ import java.util.List;
 public class ContestDto
 {
     public int id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate date;
+
     public String resort;
     public int prizePool;
     public String discipline;
