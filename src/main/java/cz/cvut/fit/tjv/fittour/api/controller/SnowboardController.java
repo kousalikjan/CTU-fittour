@@ -2,6 +2,9 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
+import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
+import cz.cvut.fit.tjv.fittour.business.EntityStateException;
+import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,66 +12,65 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 @RestController
 public class SnowboardController
 {
+
+    private final SnowboardService snowboardService;
+
+    SnowboardController(SnowboardService snowboardService)
+    {
+        this.snowboardService = snowboardService;
+    }
+
+
     @GetMapping("/snowboards")
     Collection<SnowboardDto> all()
     {
-        ArrayList<Snowboard> res = new ArrayList<>();
-        res.add(new Snowboard(null, "Burton", "Spiral", "CAMBER", 7, 6000));
-        res.add(new Snowboard(2, "Nidecker", "Pamela Anderson", "HYBRID", 6, 7500));
-
-        return SnowboardConverter.fromModelMany(res);
+        return SnowboardConverter.fromModelMany(snowboardService.readAll());
     }
 
     @PostMapping("/snowboards")
-    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
+    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard) throws EntityStateException
     {
-        System.out.println(newSnowboard.getId());
-
-        return new SnowboardDto(newSnowboard.getId(),
-                newSnowboard.getBrand(),
-                newSnowboard.getModelName(),
-                newSnowboard.getProfile(),
-                newSnowboard.getFlex(),
-                newSnowboard.getPrice());
+        Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
+        snowboardService.create(snowboard);
+        return SnowboardConverter.fromModel(snowboard);
     }
 
     @GetMapping("/snowboards/{id}")
-    SnowboardDto one(@PathVariable String id)
+    SnowboardDto one(@PathVariable int id)
     {
-        int newId = 0;
-        try {
-            newId = Integer.parseInt(id);
-        }catch (NumberFormatException e)
-        {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid ID");
-        }
-        return new SnowboardDto(newId,
-                "Nitro",
-                "Kleveland",
-                "ROCKER",
-                4,
-                11000);
+        return SnowboardConverter.fromModel(
+                snowboardService.readById(id)
+                        .orElseThrow(NoEntityFoundException::new)
+        );
     }
-
-
+    
     @PutMapping("/snowboards/{id}")
-    SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
+    SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto,
+                                 @PathVariable int id) throws EntityStateException, NoEntityFoundException
     {
-        return new SnowboardDto(1,
-                "Updated",
-                "Snowboard",
-                "FLAT",
-                4,
-                7400);
+        // Check whether the id exists
+        snowboardService.readById(id).orElseThrow(NoEntityFoundException::new);
+
+        Snowboard snowboard = SnowboardConverter.toModel(snowboardDto);
+        if(snowboardService.readById(snowboard.getId()).isPresent())
+            if(snowboardService.readById(snowboard.getId()).get().getId() != id)
+                throw new EntityStateException("Entity is not unique");
+
+        // When ID is invalid ("string"), does nothing, throws EntityStateException when null
+        snowboardService.update(snowboard);
+        return SnowboardConverter.fromModel(snowboard);
     }
 
     @DeleteMapping("/snowboards/{id}")
     void deleteSnowboard(@PathVariable int id)
     {
+        snowboardService.readById(id)
+                .orElseThrow(NoEntityFoundException::new);
+        snowboardService.deleteById(id);
     }
 }
