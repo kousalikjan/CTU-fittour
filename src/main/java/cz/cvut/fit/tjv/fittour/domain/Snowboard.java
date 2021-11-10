@@ -1,8 +1,14 @@
 package cz.cvut.fit.tjv.fittour.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "snowboard")
 public class Snowboard
 {
+    @Id
     private int id;
+
     private String brand;
     private String modelName;
     private String profile;
