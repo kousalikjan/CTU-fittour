@@ -1,5 +1,7 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
+import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +14,13 @@ import java.util.Collection;
 public class SnowboardController
 {
     @GetMapping("/snowboards")
-    Collection<Snowboard> all()
+    Collection<SnowboardDto> all()
     {
         ArrayList<Snowboard> res = new ArrayList<>();
-        res.add(new Snowboard(1, "Burton", "Spiral", "CAMBER", 5, 6000));
+        res.add(new Snowboard(1, "Burton", "Spiral", "CAMBER", 7, 6000));
         res.add(new Snowboard(2, "Nidecker", "Pamela Anderson", "HYBRID", 6, 7500));
-        return res;
+
+        return SnowboardConverter.fromModelMany(res);
     }
 
     @PostMapping("/snowboards")
