@@ -1,8 +1,10 @@
 plugins {
+    // Spring creates its own jar file
+    id 'org.springframework.boot' version '2.5.5'
     id 'java'
 }
 
-group 'cz.fit.cvut.tjv.kousaja1'
+group 'cz.cvut.fit.tjv.kousaja1'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -10,10 +12,5 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
-
-test {
-    useJUnitPlatform()
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
 }
