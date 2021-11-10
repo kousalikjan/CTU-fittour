@@ -25,7 +25,7 @@ public class SnowboardConverter
                 snowboard.getModelName(),
                 snowboard.getProfile(),
                 snowboard.getFlex(),
-                snowboard.getFlex());
+                snowboard.getPrice());
     }
 
     public static Collection<SnowboardDto> fromModelMany(Collection<Snowboard> snowboards)
