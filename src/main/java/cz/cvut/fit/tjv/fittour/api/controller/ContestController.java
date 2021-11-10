@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.fittour.controller;
+package cz.cvut.fit.tjv.fittour.api.controller;
 
 import cz.cvut.fit.tjv.fittour.domain.Contest;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
