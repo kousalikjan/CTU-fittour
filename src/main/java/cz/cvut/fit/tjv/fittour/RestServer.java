@@ -1,4 +1,4 @@
-package cz.fit.cvut.tjv.fittour;
+package cz.cvut.fit.tjv.fittour;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
