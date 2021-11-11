@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.fittour.cli;
+package cz.cvut.fit.tjv.fittour.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
