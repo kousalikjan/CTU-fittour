@@ -1,13 +1,20 @@
 package cz.cvut.fit.tjv.fittour.domain;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
+
 
 public class Rider
 {
+
     private int id;
     private String name;
     private String surname;
     private LocalDate dateOfBirth;
     private String category;
+
     private Snowboard snowboard;
 
     public Rider()

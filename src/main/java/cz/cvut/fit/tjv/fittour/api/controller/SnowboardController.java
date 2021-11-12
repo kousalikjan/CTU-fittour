@@ -6,13 +6,8 @@ import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 @RestController
 public class SnowboardController
@@ -62,6 +57,7 @@ public class SnowboardController
                 throw new EntityStateException("Entity is not unique");
 
         // When ID is invalid ("string"), does nothing, throws EntityStateException when null
+        //TODO: Parse in dto? Ask someone
         snowboardService.update(snowboard);
         return SnowboardConverter.fromModel(snowboard);
     }
