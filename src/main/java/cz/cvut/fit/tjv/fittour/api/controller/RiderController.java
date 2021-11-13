@@ -1,6 +1,8 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import cz.cvut.fit.tjv.fittour.api.converter.RiderConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
+import cz.cvut.fit.tjv.fittour.business.RiderService;
 import cz.cvut.fit.tjv.fittour.domain.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,23 +13,28 @@ import java.util.Collection;
 @RestController
 public class RiderController
 {
+
+    private final RiderService riderService;
+
+    public RiderController(RiderService riderService)
+    {
+        this.riderService = riderService;
+    }
+
     @GetMapping("/riders")
     Collection<RiderDto> all()
     {
-        ArrayList<RiderDto> res = new ArrayList<>();
-        res.add(new RiderDto(1,
-                "Marcus",
-                "Kleveland",
-                LocalDate.of(2001, 8, 24),
-                new Snowboard(2, "Nitro", "Electric", "ROCKER", 6, 14000)
-                ));
-        return res;
+        return RiderConverter.fromModelMany(riderService.readAll());
     }
 
     @PostMapping("/riders")
     RiderDto newRider(@RequestBody RiderDto newRider)
     {
-        return new RiderDto();
+        System.out.println("Adding new rider");
+        Rider rider = RiderConverter.toModel(newRider);
+        System.out.println(rider.getSnowboard().getId());
+        riderService.create(rider);
+        return RiderConverter.fromModel(rider);
     }
 
     @GetMapping("/riders/{id}")

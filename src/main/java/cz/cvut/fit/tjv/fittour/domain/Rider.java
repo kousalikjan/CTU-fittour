@@ -4,6 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Rider
@@ -15,7 +16,9 @@ public class Rider
     private String surname;
     private LocalDate dateOfBirth;
 
+
     @ManyToOne
+    @JoinColumn(name = "snowboard_id")
     private Snowboard snowboard;
 
     public Rider()
@@ -25,7 +28,7 @@ public class Rider
 
     public Rider(int id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
     {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;

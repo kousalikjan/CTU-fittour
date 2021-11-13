@@ -71,7 +71,6 @@ public class RiderDto
         this.dateOfBirth = dateOfBirth;
     }
 
-
     public Snowboard getSnowboard()
     {
         return snowboard;
