@@ -2,6 +2,8 @@ package cz.cvut.fit.tjv.fittour.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity(name = "snowboard")
@@ -15,6 +17,9 @@ public class Snowboard
     private String profile;
     private int flex;
     private int price;
+
+    @OneToMany(mappedBy = "snowboard")
+    private Collection<Rider> riders;
 
     public Snowboard()
     {

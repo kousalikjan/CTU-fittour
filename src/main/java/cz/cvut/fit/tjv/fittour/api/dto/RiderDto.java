@@ -15,7 +15,6 @@ public class RiderDto
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate dateOfBirth;
 
-    public String category;
     public Snowboard snowboard;
 
     public RiderDto()
@@ -23,13 +22,12 @@ public class RiderDto
 
     }
 
-    public RiderDto(int id, String name, String surname, LocalDate dateOfBirth, String category, Snowboard snowboard)
+    public RiderDto(int id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
     {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
-        this.category = category;
         this.snowboard = snowboard;
     }
 
@@ -73,15 +71,6 @@ public class RiderDto
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getCategory()
-    {
-        return category;
-    }
-
-    public void setCategory(String category)
-    {
-        this.category = category;
-    }
 
     public Snowboard getSnowboard()
     {

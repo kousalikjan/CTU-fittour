@@ -19,7 +19,6 @@ public class RiderController
                 "Marcus",
                 "Kleveland",
                 LocalDate.of(2001, 8, 24),
-                "PROFESSIONAL",
                 new Snowboard(2, "Nitro", "Electric", "ROCKER", 6, 14000)
                 ));
         return res;

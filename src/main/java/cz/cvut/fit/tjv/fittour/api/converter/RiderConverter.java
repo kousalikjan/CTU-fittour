@@ -14,7 +14,6 @@ public class RiderConverter
                 riderDto.name,
                 riderDto.surname,
                 riderDto.dateOfBirth,
-                riderDto.category,
                 riderDto.snowboard);
     }
 
@@ -24,7 +23,6 @@ public class RiderConverter
                 rider.getName(),
                 rider.getSurname(),
                 rider.getDateOfBirth(),
-                rider.getCategory(),
                 rider.getSnowboard());
     }
 
