@@ -48,14 +48,15 @@ public class SnowboardController
     }
     
     @PutMapping("/snowboards/{id}")
-    SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto,
-                                 @PathVariable int id) throws EntityStateException, NoEntityFoundException
+    SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
+            throws EntityStateException, NoEntityFoundException, NullPointerException
     {
         // Check whether the id exists
-        snowboardService.readById(id).orElseThrow(NoEntityFoundException::new);
+        Snowboard oldSnowboard = snowboardService.readById(id).orElseThrow(NoEntityFoundException::new);
         Snowboard snowboard = SnowboardConverter.toModel(snowboardDto);
         if(snowboard.getId() != id)
             throw new UpdatedIDException();
+        snowboard.setRiders(oldSnowboard.getRiders());
         snowboardService.update(snowboard);
         return SnowboardConverter.fromModel(snowboard);
     }

@@ -2,8 +2,10 @@ package cz.cvut.fit.tjv.fittour.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "snowboard")
 public class Snowboard
@@ -17,6 +19,9 @@ public class Snowboard
     private int flex;
     private int price;
 
+    @OneToMany(mappedBy = "snowboard")
+    private Set<Rider> riders;
+
     public Snowboard()
     {
     }
@@ -27,7 +32,7 @@ public class Snowboard
      * @param id given id; cannot be null
      * @throws NullPointerException if the given id is null
      */
-    public Snowboard(Integer id, String brand, String modelName, String profile, int flex, int price)
+    public Snowboard(Integer id, String brand, String modelName, String profile, int flex, int price, Set<Rider> riders)
     {
         this.id = Objects.requireNonNull(id);
         this.brand = brand;
@@ -35,6 +40,7 @@ public class Snowboard
         this.profile = profile;
         this.flex = flex;
         this.price = price;
+        this.riders = riders;
     }
 
     public Integer getId()
@@ -90,5 +96,20 @@ public class Snowboard
     public void setPrice(int price)
     {
         this.price = price;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public Set<Rider> getRiders()
+    {
+        return riders;
+    }
+
+    public void setRiders(Set<Rider> riders)
+    {
+        this.riders = riders;
     }
 }

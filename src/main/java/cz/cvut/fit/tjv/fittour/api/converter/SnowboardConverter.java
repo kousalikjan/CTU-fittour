@@ -16,7 +16,8 @@ public class SnowboardConverter
                 snowboardDto.modelName,
                 snowboardDto.profile,
                 snowboardDto.flex,
-                snowboardDto.price);
+                snowboardDto.price,
+                null);
     }
 
     public static SnowboardDto fromModel(Snowboard snowboard)
