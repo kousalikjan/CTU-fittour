@@ -1,28 +1,36 @@
 package cz.cvut.fit.tjv.fittour.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import cz.cvut.fit.tjv.fittour.domain.Rider;
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.cvut.fit.tjv.fittour.api.controller.Views;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 
 import java.time.LocalDate;
 
-public class RiderOutputDto
+public class RiderDto
 {
+    @JsonView(Views.Public.class)
     public Integer id;
+
+    @JsonView(Views.Public.class)
     public String name;
+
+    @JsonView(Views.Public.class)
     public String surname;
 
+    @JsonView(Views.Public.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate dateOfBirth;
 
+    @JsonView(Views.Output.class)
     public Snowboard snowboard;
 
-    public RiderOutputDto()
+    public RiderDto()
     {
 
     }
 
-    public RiderOutputDto(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
+    public RiderDto(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
     {
         this.id = id;
         this.name = name;

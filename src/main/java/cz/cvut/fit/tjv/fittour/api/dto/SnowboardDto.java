@@ -1,5 +1,9 @@
 package cz.cvut.fit.tjv.fittour.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.cvut.fit.tjv.fittour.api.controller.Views;
+
+@JsonView(Views.Public.class)
 public class SnowboardDto
 {
     public Integer id;

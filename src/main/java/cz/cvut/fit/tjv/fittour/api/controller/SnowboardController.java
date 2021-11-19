@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
 import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
@@ -22,12 +23,14 @@ public class SnowboardController
     }
 
 
+    @JsonView(Views.Public.class)
     @GetMapping("/snowboards")
     Collection<SnowboardDto> all()
     {
         return SnowboardConverter.fromModelMany(snowboardService.readAll());
     }
 
+    @JsonView(Views.Public.class)
     @PostMapping("/snowboards")
     SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard) throws EntityStateException
     {
@@ -38,6 +41,7 @@ public class SnowboardController
                         orElseThrow(NoEntityFoundException::new));
     }
 
+    @JsonView(Views.Public.class)
     @GetMapping("/snowboards/{id}")
     SnowboardDto one(@PathVariable int id)
     {
@@ -46,7 +50,8 @@ public class SnowboardController
                         .orElseThrow(NoEntityFoundException::new)
         );
     }
-    
+
+    @JsonView(Views.Public.class)
     @PutMapping("/snowboards/{id}")
     SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
             throws EntityStateException, NoEntityFoundException, NullPointerException

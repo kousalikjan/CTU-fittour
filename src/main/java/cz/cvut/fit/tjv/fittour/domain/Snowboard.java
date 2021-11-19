@@ -1,5 +1,9 @@
 package cz.cvut.fit.tjv.fittour.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.cvut.fit.tjv.fittour.api.controller.Views;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -7,6 +11,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
+@JsonView(Views.Public.class)
 @Entity(name = "snowboard")
 public class Snowboard
 {
@@ -19,6 +24,7 @@ public class Snowboard
     private int flex;
     private int price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "snowboard")
     private Set<Rider> riders;
 
@@ -112,4 +118,10 @@ public class Snowboard
     {
         this.riders = riders;
     }
+
+    public boolean addRider(Rider rider)
+    {
+        return riders.add(rider);
+    }
+
 }
