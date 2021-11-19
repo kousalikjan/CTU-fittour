@@ -19,7 +19,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     //Handle exception from business
     @ExceptionHandler(value = {EntityStateException.class})
-    protected ResponseEntity<Object> handleConflict(
+    protected ResponseEntity<Object> handleEntityState(
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Entity not unique";
         return handleExceptionInternal(ex, bodyOfResponse,
@@ -46,6 +46,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = {UpdatedIDException.class})
+    protected ResponseEntity<Object> handleUpdatedIDException(
+            RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "You cannot change entity ID";
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
 
 
 }

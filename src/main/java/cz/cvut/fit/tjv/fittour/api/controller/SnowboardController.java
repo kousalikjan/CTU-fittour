@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
 import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
+import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
@@ -52,12 +53,9 @@ public class SnowboardController
     {
         // Check whether the id exists
         snowboardService.readById(id).orElseThrow(NoEntityFoundException::new);
-
         Snowboard snowboard = SnowboardConverter.toModel(snowboardDto);
-        if(snowboardService.readById(snowboard.getId()).isPresent())
-            if(snowboardService.readById(snowboard.getId()).get().getId() != id)
-                throw new EntityStateException("Entity is not unique");
-
+        if(snowboard.getId() != id)
+            throw new UpdatedIDException();
         snowboardService.update(snowboard);
         return SnowboardConverter.fromModel(snowboard);
     }

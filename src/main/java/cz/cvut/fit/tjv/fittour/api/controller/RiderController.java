@@ -19,12 +19,10 @@ public class RiderController
 {
 
     private final RiderService riderService;
-    private final SnowboardService snowboardService;
 
-    public RiderController(RiderService riderService, SnowboardService snowboardService)
+    public RiderController(RiderService riderService)
     {
         this.riderService = riderService;
-        this.snowboardService = snowboardService;
     }
 
     @GetMapping("/riders")
@@ -36,15 +34,9 @@ public class RiderController
     @PostMapping("/riders")
     RiderOutputDto newRider(@RequestBody RiderInputDto newRider)
     {
-        Rider rider = RiderConverter.toModel(newRider);
-        if(newRider.snowboardId != null)
-        {
-            Optional<Snowboard> snowboardOpt = snowboardService.readById(newRider.snowboardId);
-            snowboardOpt.ifPresent(rider::setSnowboard);
-        }
-        riderService.create(rider);
+        riderService.addRider(newRider);
         return RiderConverter.fromModel(
-                riderService.readById(rider.getId()).
+                riderService.readById(newRider.getId()).
                 orElseThrow(NoEntityFoundException::new));
     }
 
