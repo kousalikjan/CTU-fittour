@@ -36,7 +36,8 @@ public class SnowboardController
 
     @JsonView(Views.Public.class)
     @PostMapping("/snowboards")
-    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard) throws EntityStateException
+    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
+            throws EntityStateException, NoEntityFoundException, NullPointerException
     {
         Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
         snowboardService.create(snowboard);
@@ -47,7 +48,7 @@ public class SnowboardController
 
     @JsonView(Views.Public.class)
     @GetMapping("/snowboards/{id}")
-    SnowboardDto one(@PathVariable int id)
+    SnowboardDto one(@PathVariable int id) throws NoEntityFoundException
     {
         return SnowboardConverter.fromModel(
                 snowboardService.readById(id)
@@ -60,18 +61,15 @@ public class SnowboardController
     SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
             throws EntityStateException, NoEntityFoundException, NullPointerException
     {
-        // Check whether the id exists
-        Snowboard oldSnowboard = snowboardService.readById(id).orElseThrow(NoEntityFoundException::new);
-        Snowboard snowboard = SnowboardConverter.toModel(snowboardDto);
-        if(snowboard.getId() != id)
+        if(snowboardDto.getId() != id)
             throw new UpdatedIDException();
-        snowboard.setRiders(oldSnowboard.getRiders());
-        snowboardService.update(snowboard);
-        return SnowboardConverter.fromModel(snowboard);
+        snowboardService.updateSnowboard(snowboardDto);
+        return SnowboardConverter.fromModel(snowboardService.readById(id)
+                .orElseThrow(NoEntityFoundException::new));
     }
 
     @DeleteMapping("/snowboards/{id}")
-    void deleteSnowboard(@PathVariable int id)
+    void deleteSnowboard(@PathVariable int id) throws NoEntityFoundException
     {
         snowboardService.readById(id)
                 .orElseThrow(NoEntityFoundException::new);

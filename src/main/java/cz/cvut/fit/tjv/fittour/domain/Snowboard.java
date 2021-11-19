@@ -7,6 +7,7 @@ import cz.cvut.fit.tjv.fittour.api.controller.Views;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -128,6 +129,13 @@ public class Snowboard
     public void removeRider(Rider rider)
     {
         riders.remove(rider);
+    }
+
+    @PreRemove
+    private void preRemove()
+    {
+        for (Rider r: riders)
+            r.setSnowboard(null);
     }
 
     @Override
