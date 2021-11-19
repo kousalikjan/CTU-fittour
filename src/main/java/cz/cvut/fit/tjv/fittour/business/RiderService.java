@@ -40,6 +40,18 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
         snowboardService.update(snowboard);
     }
 
+    public void deleteRider(int id)
+    {
+        Rider rider = readById(id).orElseThrow(NoEntityFoundException::new);
+        if(rider.getSnowboard() != null)
+        {
+            Snowboard snowboard = rider.getSnowboard();
+            snowboard.removeRider(rider);
+            snowboardService.update(snowboard);
+        }
+        rider.setSnowboard(null);
+        deleteById(id);
+    }
 
     @Override
     protected boolean exists(Rider entity)

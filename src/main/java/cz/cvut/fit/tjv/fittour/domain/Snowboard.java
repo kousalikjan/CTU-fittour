@@ -120,9 +120,14 @@ public class Snowboard
         this.riders = riders;
     }
 
-    public boolean addRider(Rider rider)
+    public void addRider(Rider rider)
     {
-        return riders.add(rider);
+        riders.add(rider);
+    }
+
+    public void removeRider(Rider rider)
+    {
+        riders.remove(rider);
     }
 
     @Override

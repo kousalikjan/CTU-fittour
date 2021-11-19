@@ -78,10 +78,9 @@ public class RiderController
 
 
     @DeleteMapping("/riders/{id}")
-    void deleteRider(@PathVariable int id)
+    void deleteRider(@PathVariable int id) throws NoEntityFoundException
     {
-        riderService.readById(id).orElseThrow(NoEntityFoundException::new);
-        riderService.deleteById(id);
+        riderService.deleteRider(id);
     }
 
 
