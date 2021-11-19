@@ -20,7 +20,7 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
         this.snowboardService = snowboardService;
     }
 
-    public void addRider(RiderInputDto newRider) throws EntityStateException
+    public void addRider(RiderInputDto newRider) throws EntityStateException, NullPointerException
     {
         Rider rider = RiderConverter.toModel(newRider);
         if(newRider.snowboardId != null)
@@ -30,6 +30,18 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
         }
         create(rider);
     }
+
+    public void updateRider(RiderInputDto newRider) throws EntityStateException, NullPointerException
+    {
+        Rider rider = RiderConverter.toModel(newRider);
+        if(newRider.snowboardId != null)
+        {
+            Optional<Snowboard> snowboardOpt = snowboardService.readById(newRider.snowboardId);
+            snowboardOpt.ifPresent(rider::setSnowboard);
+        }
+        update(rider);
+    }
+
 
 
     @Override

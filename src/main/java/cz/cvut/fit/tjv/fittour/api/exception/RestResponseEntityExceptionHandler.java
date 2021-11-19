@@ -52,7 +52,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "You cannot change entity ID";
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 

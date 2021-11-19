@@ -16,7 +16,7 @@ public class Rider
     private String surname;
     private LocalDate dateOfBirth;
 
-    @ManyToOne
+    @ManyToOne(cascade = {javax.persistence.CascadeType.PERSIST})
     @JoinColumn(name = "snowboard_id")
     private Snowboard snowboard;
 
