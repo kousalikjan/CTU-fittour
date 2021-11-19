@@ -64,6 +64,19 @@ public class RiderController
                         .orElseThrow(NoEntityFoundException::new));
     }
 
+
+    @JsonView({Views.Output.class})
+    @PutMapping("/riders/{riderID}/snowboard")
+    RiderDto updateRiderSnowboard(@PathVariable int riderID, @RequestBody int snowboardID)
+            throws NoEntityFoundException, EntityStateException
+    {
+        riderService.updateRiderSnowboard(riderID, snowboardID);
+        return RiderConverter.fromModel(
+                riderService.readById(riderID)
+                        .orElseThrow(NoEntityFoundException::new));
+    }
+
+
     @DeleteMapping("/riders/{id}")
     void deleteRider(@PathVariable int id)
     {

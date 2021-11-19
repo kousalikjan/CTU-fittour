@@ -83,4 +83,12 @@ public class Rider
     {
         this.snowboard = snowboard;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Rider{" +
+                "id=" + id +
+                '}';
+    }
 }

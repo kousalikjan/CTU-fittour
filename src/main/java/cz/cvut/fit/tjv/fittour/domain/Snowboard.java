@@ -24,6 +24,7 @@ public class Snowboard
     private int flex;
     private int price;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "snowboard")
     private Set<Rider> riders;
@@ -124,4 +125,12 @@ public class Snowboard
         return riders.add(rider);
     }
 
+    @Override
+    public String toString()
+    {
+        return "Snowboard{" +
+                "id=" + id +
+                ", riders=" + riders +
+                '}';
+    }
 }

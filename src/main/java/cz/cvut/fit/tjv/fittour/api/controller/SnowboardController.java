@@ -27,6 +27,10 @@ public class SnowboardController
     @GetMapping("/snowboards")
     Collection<SnowboardDto> all()
     {
+        for (Snowboard snowboard:snowboardService.readAll())
+        {
+            System.out.println(snowboard);
+        }
         return SnowboardConverter.fromModelMany(snowboardService.readAll());
     }
 

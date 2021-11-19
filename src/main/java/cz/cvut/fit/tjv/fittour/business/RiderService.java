@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
 import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
 import cz.cvut.fit.tjv.fittour.dao.RiderJpaRepository;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
+import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +28,17 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
         update(rider);
     }
 
+    public void updateRiderSnowboard(int riderID, int snowboardID)
+            throws NoEntityFoundException, EntityStateException
+    {
+        Rider rider = readById(riderID).orElseThrow(NoEntityFoundException::new);
+        Snowboard snowboard = snowboardService.readById(snowboardID)
+                .orElseThrow(NoEntityFoundException::new);
+        rider.setSnowboard(snowboard);
+        snowboard.addRider(rider);
+        update(rider);
+        snowboardService.update(snowboard);
+    }
 
 
     @Override
