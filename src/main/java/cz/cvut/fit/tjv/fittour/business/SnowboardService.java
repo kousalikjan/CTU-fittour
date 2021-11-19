@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SnowboardService extends AbstractCrudService<Integer, Snowboard, SnowboardJpaRepository>
 {
+
     public SnowboardService(SnowboardJpaRepository snowboardRepository)
     {
         super(snowboardRepository);

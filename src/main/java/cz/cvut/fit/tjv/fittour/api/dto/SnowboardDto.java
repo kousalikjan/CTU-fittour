@@ -2,7 +2,7 @@ package cz.cvut.fit.tjv.fittour.api.dto;
 
 public class SnowboardDto
 {
-    public int id;
+    public Integer id;
     public String brand;
     public String modelName;
     public String profile;
@@ -14,7 +14,7 @@ public class SnowboardDto
 
     }
 
-    public SnowboardDto(int id, String brand, String modelName, String profile, int flex, int price)
+    public SnowboardDto(Integer id, String brand, String modelName, String profile, int flex, int price)
     {
         this.id = id;
         this.brand = brand;
@@ -24,12 +24,12 @@ public class SnowboardDto
         this.price = price;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
         this.id = id;
     }

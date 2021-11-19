@@ -1,52 +1,65 @@
 package cz.cvut.fit.tjv.fittour.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.RiderConverter;
-import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
+import cz.cvut.fit.tjv.fittour.api.dto.RiderInputDto;
+import cz.cvut.fit.tjv.fittour.api.dto.RiderOutputDto;
+import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
 import cz.cvut.fit.tjv.fittour.business.RiderService;
+import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.swing.text.View;
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 public class RiderController
 {
 
     private final RiderService riderService;
+    private final SnowboardService snowboardService;
 
-    public RiderController(RiderService riderService)
+    public RiderController(RiderService riderService, SnowboardService snowboardService)
     {
         this.riderService = riderService;
+        this.snowboardService = snowboardService;
     }
 
     @GetMapping("/riders")
-    Collection<RiderDto> all()
+    Collection<RiderOutputDto> all()
     {
         return RiderConverter.fromModelMany(riderService.readAll());
     }
 
     @PostMapping("/riders")
-    RiderDto newRider(@RequestBody RiderDto newRider)
+    RiderOutputDto newRider(@RequestBody RiderInputDto newRider)
     {
-        System.out.println("Adding new rider");
         Rider rider = RiderConverter.toModel(newRider);
-        System.out.println(rider.getSnowboard().getId());
+        if(newRider.snowboardId != null)
+        {
+            Optional<Snowboard> snowboardOpt = snowboardService.readById(newRider.snowboardId);
+            snowboardOpt.ifPresent(rider::setSnowboard);
+        }
         riderService.create(rider);
-        return RiderConverter.fromModel(rider);
+        return RiderConverter.fromModel(
+                riderService.readById(rider.getId()).
+                orElseThrow(NoEntityFoundException::new));
     }
 
     @GetMapping("/riders/{id}")
-    RiderDto one(@PathVariable int id)
+    RiderOutputDto one(@PathVariable int id)
     {
-        return new RiderDto();
+        return RiderConverter.fromModel(
+                riderService.readById(id)
+                        .orElseThrow(NoEntityFoundException::new));
     }
 
     @PutMapping("/riders/{id}")
-    RiderDto updateRider(@RequestBody RiderDto riderDto, @PathVariable int id)
+    RiderOutputDto updateRider(@RequestBody RiderInputDto riderDto, @PathVariable int id)
     {
-        return new RiderDto();
+        return new RiderOutputDto();
     }
 
     @DeleteMapping("/riders/{id}")

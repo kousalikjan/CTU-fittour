@@ -5,12 +5,13 @@ import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class SnowboardConverter
 {
     public static Snowboard toModel(SnowboardDto snowboardDto)
     {
-        return new Snowboard(snowboardDto.id,
+        return new Snowboard(Objects.requireNonNull(snowboardDto.id),
                 snowboardDto.brand,
                 snowboardDto.modelName,
                 snowboardDto.profile,

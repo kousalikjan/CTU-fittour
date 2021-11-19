@@ -1,37 +1,32 @@
-package cz.cvut.fit.tjv.fittour.domain;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package cz.cvut.fit.tjv.fittour.api.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Entity
-public class Rider
+public class RiderInputDto
 {
+    public Integer id;
+    public String name;
+    public String surname;
 
-    @Id
-    private Integer id;
-    private String name;
-    private String surname;
-    private LocalDate dateOfBirth;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
+    public LocalDate dateOfBirth;
 
-    @ManyToOne
-    @JoinColumn(name = "snowboard_id")
-    private Snowboard snowboard;
+    public Integer snowboardId;
 
-    public Rider()
+    public RiderInputDto()
     {
 
     }
 
-    public Rider(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
+    public RiderInputDto(Integer id, String name, String surname, LocalDate dateOfBirth, Integer snowboardId)
     {
-        this.id = Objects.requireNonNull(id);
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
-        this.snowboard = snowboard;
+        this.snowboardId = snowboardId;
     }
 
     public Integer getId()
@@ -74,13 +69,13 @@ public class Rider
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Snowboard getSnowboard()
+    public Integer getSnowboardId()
     {
-        return snowboard;
+        return snowboardId;
     }
 
-    public void setSnowboard(Snowboard snowboard)
+    public void setSnowboardId(Integer snowboardId)
     {
-        this.snowboard = snowboard;
+        this.snowboardId = snowboardId;
     }
 }

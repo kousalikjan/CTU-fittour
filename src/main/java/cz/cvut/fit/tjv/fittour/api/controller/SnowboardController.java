@@ -32,7 +32,9 @@ public class SnowboardController
     {
         Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
         snowboardService.create(snowboard);
-        return SnowboardConverter.fromModel(snowboard);
+        return SnowboardConverter.fromModel(
+                snowboardService.readById(snowboard.getId()).
+                        orElseThrow(NoEntityFoundException::new));
     }
 
     @GetMapping("/snowboards/{id}")
@@ -56,8 +58,6 @@ public class SnowboardController
             if(snowboardService.readById(snowboard.getId()).get().getId() != id)
                 throw new EntityStateException("Entity is not unique");
 
-        // When ID is invalid ("string"), does nothing, throws EntityStateException when null
-        //TODO: Parse in dto? Ask someone
         snowboardService.update(snowboard);
         return SnowboardConverter.fromModel(snowboard);
     }

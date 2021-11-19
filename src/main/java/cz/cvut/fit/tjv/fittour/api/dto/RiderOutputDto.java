@@ -6,9 +6,9 @@ import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 
 import java.time.LocalDate;
 
-public class RiderDto
+public class RiderOutputDto
 {
-    public int id;
+    public Integer id;
     public String name;
     public String surname;
 
@@ -17,12 +17,12 @@ public class RiderDto
 
     public Snowboard snowboard;
 
-    public RiderDto()
+    public RiderOutputDto()
     {
 
     }
 
-    public RiderDto(int id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
+    public RiderOutputDto(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
     {
         this.id = id;
         this.name = name;
@@ -31,12 +31,12 @@ public class RiderDto
         this.snowboard = snowboard;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
         this.id = id;
     }

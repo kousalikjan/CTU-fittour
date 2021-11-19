@@ -2,7 +2,6 @@ package cz.cvut.fit.tjv.fittour.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,16 +9,13 @@ import java.util.Objects;
 public class Snowboard
 {
     @Id
-    private int id;
+    private Integer id;
 
     private String brand;
     private String modelName;
     private String profile;
     private int flex;
     private int price;
-
-    @OneToMany(mappedBy = "snowboard")
-    private Collection<Rider> riders;
 
     public Snowboard()
     {
@@ -41,7 +37,7 @@ public class Snowboard
         this.price = price;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
