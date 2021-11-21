@@ -23,14 +23,14 @@ public class RiderController
         this.riderService = riderService;
     }
 
-    @JsonView(Views.Output.class)
+    @JsonView(Views.RiderOutput.class)
     @GetMapping("/riders")
     Collection<RiderDto> all()
     {
         return RiderConverter.fromModelMany(riderService.readAll());
     }
 
-    @JsonView(Views.Output.class)
+    @JsonView(Views.RiderOutput.class)
     @PostMapping("/riders")
     RiderDto newRider(@JsonView(Views.Public.class) @RequestBody RiderDto newRider)
             throws NoEntityFoundException, NullPointerException, EntityStateException
@@ -42,7 +42,7 @@ public class RiderController
                 orElseThrow(NoEntityFoundException::new));
     }
 
-    @JsonView(Views.Output.class)
+    @JsonView(Views.RiderOutput.class)
     @GetMapping("/riders/{id}")
     RiderDto one(@PathVariable int id) throws NoEntityFoundException
     {
@@ -51,7 +51,7 @@ public class RiderController
                         .orElseThrow(NoEntityFoundException::new));
     }
 
-    @JsonView(Views.Output.class)
+    @JsonView(Views.RiderOutput.class)
     @PutMapping("/riders/{id}")
     RiderDto updateRider(@JsonView(Views.Public.class) @RequestBody RiderDto riderDto, @PathVariable int id)
             throws NoEntityFoundException, UpdatedIDException, NullPointerException
@@ -65,7 +65,7 @@ public class RiderController
     }
 
 
-    @JsonView({Views.Output.class})
+    @JsonView({Views.RiderOutput.class})
     @PutMapping("/riders/{riderID}/snowboard")
     RiderDto updateRiderSnowboard(@PathVariable int riderID, @RequestBody int snowboardID)
             throws NoEntityFoundException, EntityStateException

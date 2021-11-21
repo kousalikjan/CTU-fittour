@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ContestDto
 {
-    public int id;
+    public Integer id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate date;
@@ -23,7 +23,7 @@ public class ContestDto
     {
     }
 
-    public ContestDto(int id, LocalDate date, String resort, int prizePool, String discipline, List<Rider> contestants)
+    public ContestDto(Integer id, LocalDate date, String resort, int prizePool, String discipline, List<Rider> contestants)
     {
         this.id = id;
         this.date = date;
@@ -33,12 +33,12 @@ public class ContestDto
         this.contestants = contestants;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
         this.id = id;
     }
@@ -92,4 +92,7 @@ public class ContestDto
     {
         this.contestants = contestants;
     }
+
+
+
 }

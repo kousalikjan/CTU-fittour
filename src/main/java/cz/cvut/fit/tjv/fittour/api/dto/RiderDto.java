@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.fittour.api.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.controller.Views;
+import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class RiderDto
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate dateOfBirth;
 
-    @JsonView(Views.Output.class)
-    public Snowboard snowboard;
+    @JsonView(Views.RiderOutput.class)
+    public SnowboardDto snowboard;
 
     public RiderDto()
     {
@@ -36,7 +37,7 @@ public class RiderDto
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
-        this.snowboard = snowboard;
+        this.snowboard = snowboard == null ? null : SnowboardConverter.fromModel(snowboard);
     }
 
     public Integer getId()
@@ -79,12 +80,12 @@ public class RiderDto
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Snowboard getSnowboard()
+    public SnowboardDto getSnowboard()
     {
         return snowboard;
     }
 
-    public void setSnowboard(Snowboard snowboard)
+    public void setSnowboard(SnowboardDto snowboard)
     {
         this.snowboard = snowboard;
     }

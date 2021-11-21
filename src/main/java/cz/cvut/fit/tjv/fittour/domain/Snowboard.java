@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
-@JsonView(Views.Public.class)
 @Entity(name = "snowboard")
 public class Snowboard
 {

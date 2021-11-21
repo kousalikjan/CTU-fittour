@@ -11,7 +11,7 @@ public class Views
 
     }
 
-    public static class Output extends Public
+    public static class RiderOutput extends Public
     {
 
     }
