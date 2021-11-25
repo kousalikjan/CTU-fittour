@@ -50,6 +50,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(value = {ExpectedNullIDException.class})
+    protected ResponseEntity<Object> handleExpectedNullIDException(
+            RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(),
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
 
 
 }

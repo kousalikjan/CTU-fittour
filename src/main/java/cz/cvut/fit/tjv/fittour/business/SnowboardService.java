@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.fittour.business;
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
+import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
 import cz.cvut.fit.tjv.fittour.dao.SnowboardJpaRepository;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
@@ -22,10 +23,21 @@ public class SnowboardService extends AbstractCrudService<Integer, Snowboard, Sn
         update(snowboard);
     }
 
+    public void addSnowboard(SnowboardDto newSnowboard)
+    {
+        if(newSnowboard.id != null)
+            throw new ExpectedNullIDException("snowboard");
+
+        Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
+        create(snowboard);
+    }
+
 
     @Override
     protected boolean exists(Snowboard entity)
     {
+        if(entity.getId() == null)
+            return false;
         return repository.existsById(entity.getId());
     }
 }

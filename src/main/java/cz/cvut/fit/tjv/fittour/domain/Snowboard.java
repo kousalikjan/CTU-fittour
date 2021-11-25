@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.controller.Views;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PreRemove;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +13,7 @@ import java.util.Set;
 public class Snowboard
 {
     @Id
+    @GeneratedValue
     private Integer id;
 
     private String brand;
@@ -41,7 +39,7 @@ public class Snowboard
      */
     public Snowboard(Integer id, String brand, String modelName, String profile, int flex, int price, Set<Rider> riders)
     {
-        this.id = Objects.requireNonNull(id);
+        this.id = id;
         this.brand = brand;
         this.modelName = modelName;
         this.profile = profile;
@@ -53,6 +51,11 @@ public class Snowboard
     public Integer getId()
     {
         return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
     }
 
     public String getBrand()
@@ -105,10 +108,7 @@ public class Snowboard
         this.price = price;
     }
 
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
+
 
     public Set<Rider> getRiders()
     {

@@ -11,7 +11,7 @@ public class SnowboardConverter
 {
     public static Snowboard toModel(SnowboardDto snowboardDto)
     {
-        return new Snowboard(Objects.requireNonNull(snowboardDto.id),
+        return new Snowboard(snowboardDto.id,
                 snowboardDto.brand,
                 snowboardDto.modelName,
                 snowboardDto.profile,

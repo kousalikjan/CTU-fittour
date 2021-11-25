@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
+import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
@@ -39,6 +40,9 @@ public class SnowboardController
     SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
             throws EntityStateException, NoSnowboardFoundException, NullPointerException
     {
+        if(newSnowboard.id != null)
+            throw new ExpectedNullIDException("Snowboard");
+
         Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
         snowboardService.create(snowboard);
         return SnowboardConverter.fromModel(
