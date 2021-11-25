@@ -3,7 +3,7 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
-import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
+import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.SnowboardService;
@@ -37,42 +37,42 @@ public class SnowboardController
     @JsonView(Views.Public.class)
     @PostMapping("/snowboards")
     SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
-            throws EntityStateException, NoEntityFoundException, NullPointerException
+            throws EntityStateException, NoSnowboardFoundException, NullPointerException
     {
         Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
         snowboardService.create(snowboard);
         return SnowboardConverter.fromModel(
                 snowboardService.readById(snowboard.getId()).
-                        orElseThrow(NoEntityFoundException::new));
+                        orElseThrow(NoSnowboardFoundException::new));
     }
 
     @JsonView(Views.Public.class)
     @GetMapping("/snowboards/{id}")
-    SnowboardDto one(@PathVariable int id) throws NoEntityFoundException
+    SnowboardDto one(@PathVariable int id) throws NoSnowboardFoundException
     {
         return SnowboardConverter.fromModel(
                 snowboardService.readById(id)
-                        .orElseThrow(NoEntityFoundException::new)
+                        .orElseThrow(NoSnowboardFoundException::new)
         );
     }
 
     @JsonView(Views.Public.class)
     @PutMapping("/snowboards/{id}")
     SnowboardDto updateSnowboard(@RequestBody SnowboardDto snowboardDto, @PathVariable int id)
-            throws EntityStateException, NoEntityFoundException, NullPointerException
+            throws EntityStateException, NoSnowboardFoundException, NullPointerException
     {
         if(snowboardDto.getId() != id)
             throw new UpdatedIDException();
         snowboardService.updateSnowboard(snowboardDto);
         return SnowboardConverter.fromModel(snowboardService.readById(id)
-                .orElseThrow(NoEntityFoundException::new));
+                .orElseThrow(NoSnowboardFoundException::new));
     }
 
     @DeleteMapping("/snowboards/{id}")
-    void deleteSnowboard(@PathVariable int id) throws NoEntityFoundException
+    void deleteSnowboard(@PathVariable int id) throws NoSnowboardFoundException
     {
         snowboardService.readById(id)
-                .orElseThrow(NoEntityFoundException::new);
+                .orElseThrow(NoSnowboardFoundException::new);
         snowboardService.deleteById(id);
     }
 }

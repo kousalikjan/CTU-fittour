@@ -39,19 +39,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(NoEntityFoundException.class)
     public ResponseEntity<Object> handleNodataFoundException(
             NoEntityFoundException ex, WebRequest request) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "No entity found");
-
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return handleExceptionInternal(ex, ex.getMessage(),
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(value = {UpdatedIDException.class})
     protected ResponseEntity<Object> handleUpdatedIDException(
             RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "You cannot change entity ID";
-        return handleExceptionInternal(ex, bodyOfResponse,
+        return handleExceptionInternal(ex, ex.getMessage(),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 

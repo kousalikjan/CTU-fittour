@@ -3,7 +3,8 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.RiderConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
-import cz.cvut.fit.tjv.fittour.api.exception.NoEntityFoundException;
+import cz.cvut.fit.tjv.fittour.api.exception.NoRiderFoundException;
+import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.RiderService;
@@ -33,52 +34,52 @@ public class RiderController
     @JsonView(Views.RiderOutput.class)
     @PostMapping("/riders")
     RiderDto newRider(@JsonView(Views.Public.class) @RequestBody RiderDto newRider)
-            throws NoEntityFoundException, NullPointerException, EntityStateException
+            throws NoRiderFoundException, NullPointerException, EntityStateException
     {
         Rider rider = RiderConverter.toModel(newRider);
         riderService.create(rider);
         return RiderConverter.fromModel(
                 riderService.readById(newRider.getId()).
-                orElseThrow(NoEntityFoundException::new));
+                orElseThrow(NoRiderFoundException::new));
     }
 
     @JsonView(Views.RiderOutput.class)
     @GetMapping("/riders/{id}")
-    RiderDto one(@PathVariable int id) throws NoEntityFoundException
+    RiderDto one(@PathVariable int id) throws NoRiderFoundException
     {
         return RiderConverter.fromModel(
                 riderService.readById(id)
-                        .orElseThrow(NoEntityFoundException::new));
+                        .orElseThrow(NoRiderFoundException::new));
     }
 
     @JsonView(Views.RiderOutput.class)
     @PutMapping("/riders/{id}")
     RiderDto updateRider(@JsonView(Views.Public.class) @RequestBody RiderDto riderDto, @PathVariable int id)
-            throws NoEntityFoundException, UpdatedIDException, NullPointerException
+            throws NoRiderFoundException, UpdatedIDException, NullPointerException
     {
         if(riderDto.getId() != id)
             throw new UpdatedIDException();
         riderService.updateRiderWithoutSnowboard(riderDto);
         return RiderConverter.fromModel(
                 riderService.readById(id)
-                        .orElseThrow(NoEntityFoundException::new));
+                        .orElseThrow(NoRiderFoundException::new));
     }
 
 
     @JsonView({Views.RiderOutput.class})
     @PutMapping("/riders/{riderID}/snowboard")
     RiderDto updateRiderSnowboard(@PathVariable int riderID, @RequestBody int snowboardID)
-            throws NoEntityFoundException, EntityStateException
+            throws NoRiderFoundException, EntityStateException
     {
         riderService.updateRiderSnowboard(riderID, snowboardID);
         return RiderConverter.fromModel(
                 riderService.readById(riderID)
-                        .orElseThrow(NoEntityFoundException::new));
+                        .orElseThrow(NoRiderFoundException::new));
     }
 
 
     @DeleteMapping("/riders/{id}")
-    void deleteRider(@PathVariable int id) throws NoEntityFoundException
+    void deleteRider(@PathVariable int id) throws NoRiderFoundException
     {
         riderService.deleteRider(id);
     }
