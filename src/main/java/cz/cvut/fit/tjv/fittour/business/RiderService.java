@@ -30,7 +30,7 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
     }
 
     public void updateRiderSnowboard(int riderID, int snowboardID)
-            throws NoSnowboardFoundException, EntityStateException
+            throws NoSnowboardFoundException, NoRiderFoundException, EntityStateException
     {
         Rider rider = readById(riderID).orElseThrow(NoRiderFoundException::new);
         Snowboard snowboard = snowboardService.readById(snowboardID)
@@ -57,6 +57,8 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
     @Override
     protected boolean exists(Rider entity)
     {
+        if(entity.getId() == null)
+            return false;
         return repository.existsById(entity.getId());
     }
 }

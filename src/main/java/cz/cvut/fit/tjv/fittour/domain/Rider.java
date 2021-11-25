@@ -1,8 +1,5 @@
 package cz.cvut.fit.tjv.fittour.domain;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,7 +8,10 @@ public class Rider
 {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_rider")
+    @SequenceGenerator(name = "seq_rider", sequenceName = "seq_rider", initialValue = 1, allocationSize = 1)
     private Integer id;
+
     private String name;
     private String surname;
     private LocalDate dateOfBirth;
@@ -27,7 +27,7 @@ public class Rider
 
     public Rider(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
     {
-        this.id = Objects.requireNonNull(id);
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;

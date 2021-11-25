@@ -23,16 +23,6 @@ public class SnowboardService extends AbstractCrudService<Integer, Snowboard, Sn
         update(snowboard);
     }
 
-    public void addSnowboard(SnowboardDto newSnowboard)
-    {
-        if(newSnowboard.id != null)
-            throw new ExpectedNullIDException("snowboard");
-
-        Snowboard snowboard = SnowboardConverter.toModel(newSnowboard);
-        create(snowboard);
-    }
-
-
     @Override
     protected boolean exists(Snowboard entity)
     {

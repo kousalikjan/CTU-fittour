@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.fittour.api.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.cvut.fit.tjv.fittour.api.converter.RiderConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
+import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoRiderFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
@@ -36,10 +37,13 @@ public class RiderController
     RiderDto newRider(@JsonView(Views.Public.class) @RequestBody RiderDto newRider)
             throws NoRiderFoundException, NullPointerException, EntityStateException
     {
+        if(newRider.getId() != null)
+            throw new ExpectedNullIDException("Rider");
+
         Rider rider = RiderConverter.toModel(newRider);
         riderService.create(rider);
         return RiderConverter.fromModel(
-                riderService.readById(newRider.getId()).
+                riderService.readById(rider.getId()).
                 orElseThrow(NoRiderFoundException::new));
     }
 
@@ -57,8 +61,10 @@ public class RiderController
     RiderDto updateRider(@JsonView(Views.Public.class) @RequestBody RiderDto riderDto, @PathVariable int id)
             throws NoRiderFoundException, UpdatedIDException, NullPointerException
     {
-        if(riderDto.getId() != id)
-            throw new UpdatedIDException();
+        if(riderDto.getId() != null)
+            throw new ExpectedNullIDException("Rider");
+
+        riderDto.setId(id);
         riderService.updateRiderWithoutSnowboard(riderDto);
         return RiderConverter.fromModel(
                 riderService.readById(id)
@@ -69,7 +75,7 @@ public class RiderController
     @JsonView({Views.RiderOutput.class})
     @PutMapping("/riders/{riderID}/snowboard")
     RiderDto updateRiderSnowboard(@PathVariable int riderID, @RequestBody int snowboardID)
-            throws NoRiderFoundException, EntityStateException
+            throws NoRiderFoundException, NoSnowboardFoundException, EntityStateException
     {
         riderService.updateRiderSnowboard(riderID, snowboardID);
         return RiderConverter.fromModel(
