@@ -13,7 +13,8 @@ import java.util.Set;
 public class Snowboard
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_snowboard")
+    @SequenceGenerator(name = "seq_snowboard", sequenceName = "seq_snowboard", initialValue = 1, allocationSize = 1)
     private Integer id;
 
     private String brand;
