@@ -16,4 +16,9 @@ public class Views
 
     }
 
+    public static class ContestOutput extends Public
+    {
+
+    }
+
 }

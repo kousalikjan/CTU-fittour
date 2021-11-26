@@ -1,36 +1,45 @@
 package cz.cvut.fit.tjv.fittour.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.cvut.fit.tjv.fittour.api.controller.Views;
+import cz.cvut.fit.tjv.fittour.api.converter.RiderConverter;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 public class ContestDto
 {
+
+    @JsonView(Views.Public.class)
     public Integer id;
 
+    @JsonView(Views.Public.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     public LocalDate date;
 
-    public String resort;
+    @JsonView(Views.Public.class)
     public int prizePool;
+
+    @JsonView(Views.Public.class)
     public String discipline;
-    public List<Rider> contestants;
+
+    @JsonView(Views.ContestOutput.class)
+    public Collection<RiderDto> contestants;
 
 
     public ContestDto()
     {
     }
 
-    public ContestDto(Integer id, LocalDate date, String resort, int prizePool, String discipline, List<Rider> contestants)
+    public ContestDto(Integer id, LocalDate date, int prizePool, String discipline, Collection<Rider> contestants)
     {
         this.id = id;
         this.date = date;
-        this.resort = resort;
         this.prizePool = prizePool;
         this.discipline = discipline;
-        this.contestants = contestants;
+        this.contestants = contestants == null ? null : RiderConverter.fromModelMany(contestants);
     }
 
     public Integer getId()
@@ -53,16 +62,6 @@ public class ContestDto
         this.date = date;
     }
 
-    public String getResort()
-    {
-        return resort;
-    }
-
-    public void setResort(String resort)
-    {
-        this.resort = resort;
-    }
-
     public int getPrizePool()
     {
         return prizePool;
@@ -83,16 +82,13 @@ public class ContestDto
         this.discipline = discipline;
     }
 
-    public List<Rider> getContestants()
+    public Collection<RiderDto> getContestants()
     {
         return contestants;
     }
 
-    public void setContestants(List<Rider> contestants)
+    public void setContestants(Collection<RiderDto> contestants)
     {
         this.contestants = contestants;
     }
-
-
-
 }

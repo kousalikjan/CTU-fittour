@@ -16,6 +16,7 @@ public class RiderConverter
                 rider.surname,
                 rider.dateOfBirth,
                 //rider.snowboard == null ? null : SnowboardConverter.toModel(rider.snowboard)
+                null,
                 null);
     }
 

@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.fittour.domain;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Rider
@@ -20,18 +21,22 @@ public class Rider
     @JoinColumn(name = "snowboard_id")
     private Snowboard snowboard;
 
+    @ManyToMany(mappedBy = "contestants")
+    private Set<Contest> contests;
+
     public Rider()
     {
 
     }
 
-    public Rider(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard)
+    public Rider(Integer id, String name, String surname, LocalDate dateOfBirth, Snowboard snowboard, Set<Contest> contests)
     {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
         this.snowboard = snowboard;
+        this.contests = contests;
     }
 
     public Integer getId()
@@ -82,6 +87,16 @@ public class Rider
     public void setSnowboard(Snowboard snowboard)
     {
         this.snowboard = snowboard;
+    }
+
+    public Set<Contest> getContests()
+    {
+        return contests;
+    }
+
+    public void setContests(Set<Contest> contests)
+    {
+        this.contests = contests;
     }
 
     @Override

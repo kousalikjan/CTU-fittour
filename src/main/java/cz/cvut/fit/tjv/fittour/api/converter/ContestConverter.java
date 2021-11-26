@@ -12,17 +12,16 @@ public class ContestConverter
     {
         return new Contest(contestDto.id,
                 contestDto.date,
-                contestDto.resort,
-                contestDto.prizePool,
                 contestDto.discipline,
-                contestDto.contestants);
+                contestDto.prizePool,
+                null);
+
     }
 
     public static ContestDto fromModel(Contest contest)
     {
-        return new ContestDto(contest.getId(),
+       return new ContestDto(contest.getId(),
                 contest.getDate(),
-                contest.getResort(),
                 contest.getPrizePool(),
                 contest.getDiscipline(),
                 contest.getContestants());
