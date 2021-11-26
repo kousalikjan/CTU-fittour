@@ -42,6 +42,19 @@ public class ContestService extends AbstractCrudService<Integer, Contest, Contes
         riderService.update(rider);
     }
 
+    public void removeContestant(int contestID, int riderID)
+            throws NoContestFoundException, NoRiderFoundException
+    {
+        Contest contest = readById(contestID).orElseThrow(NoContestFoundException::new);
+        Rider rider = riderService.readById(riderID).orElseThrow(NoRiderFoundException::new);
+
+        contest.removeContestant(rider);
+        rider.removeContest(contest);
+
+        update(contest);
+        riderService.update(rider);
+    }
+
 
 
     @Override

@@ -109,6 +109,14 @@ public class Rider
         contests.remove(contest);
     }
 
+    @PreRemove
+    private void PreRemove()
+    {
+        for (var contest : contests)
+            contest.removeContestant(this);
+        contests = null;
+    }
+
     @Override
     public String toString()
     {

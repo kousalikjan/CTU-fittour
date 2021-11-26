@@ -64,7 +64,7 @@ public class RiderController
             throw new ExpectedNullIDException("Rider");
 
         riderDto.setId(id);
-        riderService.updateRiderWithoutSnowboard(riderDto);
+        riderService.updateRiderWithoutRelations(riderDto);
         return RiderConverter.fromModel(
                 riderService.readById(id)
                         .orElseThrow(NoRiderFoundException::new));
@@ -84,9 +84,12 @@ public class RiderController
 
     @JsonView(Views.RiderOutput.class)
     @DeleteMapping("/riders/{riderID}/snowboard")
-    void deleteRiderSnowboard(@PathVariable int riderID) throws NoRiderFoundException
+    RiderDto deleteRiderSnowboard(@PathVariable int riderID) throws NoRiderFoundException
     {
         riderService.deleteRiderSnowboard(riderID);
+        return RiderConverter.fromModel(
+                riderService.readById(riderID)
+                        .orElseThrow(NoRiderFoundException::new));
     }
 
 

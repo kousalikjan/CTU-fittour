@@ -98,6 +98,15 @@ public class Contest
         contestants.remove(rider);
     }
 
+    @PreRemove
+    private void preRemove()
+    {
+        for (var rider: contestants)
+            rider.removeContest(this);
+        contestants = null;
+    }
+
+
 
 
 }

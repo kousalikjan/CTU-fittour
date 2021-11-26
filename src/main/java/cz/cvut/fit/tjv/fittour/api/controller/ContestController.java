@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.fittour.api.converter.ContestConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.ContestDto;
 import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoContestFoundException;
+import cz.cvut.fit.tjv.fittour.api.exception.NoRiderFoundException;
 import cz.cvut.fit.tjv.fittour.business.ContestService;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.domain.Contest;
@@ -65,21 +66,28 @@ public class ContestController
                 contestService.readById(id)
                         .orElseThrow(NoContestFoundException::new));
     }
-
+    
     @JsonView(Views.ContestOutput.class)
     @PostMapping("/contests/{contestID}/contestants")
     ContestDto addContestant(@PathVariable int contestID, @RequestBody int riderID)
+            throws NoContestFoundException, NoRiderFoundException
     {
         contestService.addContestant(contestID, riderID);
-
         return ContestConverter.fromModel(
                 contestService.readById(contestID)
                     .orElseThrow(NoContestFoundException::new));
     }
 
-
-
-
+    @JsonView(Views.ContestOutput.class)
+    @DeleteMapping("/contests/{contestID}/contestants")
+    ContestDto removeContestant(@PathVariable int contestID, @RequestBody int riderID)
+            throws NoContestFoundException, NoRiderFoundException
+    {
+        contestService.removeContestant(contestID, riderID);
+        return ContestConverter.fromModel(
+                contestService.readById(contestID)
+                        .orElseThrow(NoContestFoundException::new));
+    }
 
     @DeleteMapping("/contests/{id}")
     void deleteContest(@PathVariable int id) throws NoContestFoundException

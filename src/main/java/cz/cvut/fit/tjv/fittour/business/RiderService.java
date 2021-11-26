@@ -21,11 +21,12 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
     }
 
 
-    public void updateRiderWithoutSnowboard(RiderDto newRider) throws EntityStateException, NullPointerException
+    public void updateRiderWithoutRelations(RiderDto newRider) throws EntityStateException, NullPointerException
     {
         Rider oldRider = readById(newRider.getId()).orElseThrow(NoRiderFoundException::new);
         Rider rider = RiderConverter.toModel(newRider);
         rider.setSnowboard(oldRider.getSnowboard());
+        rider.setContests(oldRider.getContests());
         update(rider);
     }
 
