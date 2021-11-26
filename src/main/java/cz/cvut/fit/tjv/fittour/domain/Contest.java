@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.fittour.domain;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Contest
@@ -21,14 +22,14 @@ public class Contest
             joinColumns = @JoinColumn(name = "rider_id"),
             inverseJoinColumns = @JoinColumn(name = "contest_id")
             )
-    private List<Rider> contestants;
+    private Set<Rider> contestants;
 
     public Contest()
     {
 
     }
 
-    public Contest(Integer id, LocalDate date, String discipline, int prizePool, List<Rider> contestants)
+    public Contest(Integer id, LocalDate date, String discipline, int prizePool, Set<Rider> contestants)
     {
         this.id = id;
         this.date = date;
@@ -77,15 +78,26 @@ public class Contest
         this.prizePool = prizePool;
     }
 
-    public List<Rider> getContestants()
+    public Set<Rider> getContestants()
     {
         return contestants;
     }
 
-    public void setContestants(List<Rider> contestants)
+    public void setContestants(Set<Rider> contestants)
     {
         this.contestants = contestants;
     }
+
+    public void addContestant(Rider rider)
+    {
+        contestants.add(rider);
+    }
+
+    public void removeContestant(Rider rider)
+    {
+        contestants.remove(rider);
+    }
+
 
 
 }

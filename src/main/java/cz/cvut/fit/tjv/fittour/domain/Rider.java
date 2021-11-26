@@ -99,6 +99,16 @@ public class Rider
         this.contests = contests;
     }
 
+    public void addContest(Contest contest)
+    {
+        contests.add(contest);
+    }
+
+    public void removeContest(Contest contest)
+    {
+        contests.remove(contest);
+    }
+
     @Override
     public String toString()
     {

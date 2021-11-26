@@ -52,6 +52,7 @@ public class ContestController
                         .orElseThrow(NoContestFoundException::new));
     }
 
+    @JsonView(Views.ContestOutput.class)
     @PutMapping("/contests/{id}")
     ContestDto updateContest(@JsonView(Views.Public.class) @RequestBody ContestDto contestDto, @PathVariable int id)
             throws NoContestFoundException
@@ -64,6 +65,21 @@ public class ContestController
                 contestService.readById(id)
                         .orElseThrow(NoContestFoundException::new));
     }
+
+    @JsonView(Views.ContestOutput.class)
+    @PostMapping("/contests/{contestID}/contestants")
+    ContestDto addContestant(@PathVariable int contestID, @RequestBody int riderID)
+    {
+        contestService.addContestant(contestID, riderID);
+
+        return ContestConverter.fromModel(
+                contestService.readById(contestID)
+                    .orElseThrow(NoContestFoundException::new));
+    }
+
+
+
+
 
     @DeleteMapping("/contests/{id}")
     void deleteContest(@PathVariable int id) throws NoContestFoundException

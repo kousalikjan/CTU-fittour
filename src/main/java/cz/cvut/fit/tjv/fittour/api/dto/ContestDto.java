@@ -39,7 +39,7 @@ public class ContestDto
         this.date = date;
         this.prizePool = prizePool;
         this.discipline = discipline;
-        this.contestants = contestants == null ? null : RiderConverter.fromModelMany(contestants);
+        this.contestants = contestants == null ? null : RiderConverter.fromModelManyNoContests(contestants);
     }
 
     public Integer getId()

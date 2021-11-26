@@ -30,10 +30,27 @@ public class RiderConverter
                 rider.getContests());
     }
 
+    public static RiderDto fromModelNoContests(Rider rider)
+    {
+        return new RiderDto(rider.getId(),
+                rider.getName(),
+                rider.getSurname(),
+                rider.getDateOfBirth(),
+                rider.getSnowboard(),
+                null);
+    }
+
     public static Collection<RiderDto> fromModelMany(Collection<Rider> riders)
     {
         Collection<RiderDto> riderDtos = new ArrayList<>();
         riders.forEach(rider -> riderDtos.add(fromModel(rider)));
+        return riderDtos;
+    }
+
+    public static Collection<RiderDto> fromModelManyNoContests(Collection<Rider> riders)
+    {
+        Collection<RiderDto> riderDtos = new ArrayList<>();
+        riders.forEach(rider -> riderDtos.add(fromModelNoContests(rider)));
         return riderDtos;
     }
 
