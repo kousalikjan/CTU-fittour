@@ -26,7 +26,8 @@ public class RiderConverter
                 rider.getName(),
                 rider.getSurname(),
                 rider.getDateOfBirth(),
-                rider.getSnowboard());
+                rider.getSnowboard(),
+                rider.getContests());
     }
 
     public static Collection<RiderDto> fromModelMany(Collection<Rider> riders)

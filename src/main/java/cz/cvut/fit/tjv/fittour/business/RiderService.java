@@ -35,8 +35,26 @@ public class RiderService extends AbstractCrudService<Integer, Rider, RiderJpaRe
         Rider rider = readById(riderID).orElseThrow(NoRiderFoundException::new);
         Snowboard snowboard = snowboardService.readById(snowboardID)
                 .orElseThrow(NoSnowboardFoundException::new);
+
+        //This is not necessary, jpa does it automatically
+        if(rider.getSnowboard() != null)
+            rider.getSnowboard().removeRider(rider);
+
         rider.setSnowboard(snowboard);
         snowboard.addRider(rider);
+        update(rider);
+        snowboardService.update(snowboard);
+    }
+
+    public void deleteRiderSnowboard(int riderID) throws NoRiderFoundException
+    {
+        Rider rider = readById(riderID).orElseThrow(NoRiderFoundException::new);
+        Snowboard snowboard = rider.getSnowboard();
+        if(snowboard == null)
+            return;
+
+        snowboard.removeRider(rider);
+        rider.setSnowboard(null);
         update(rider);
         snowboardService.update(snowboard);
     }

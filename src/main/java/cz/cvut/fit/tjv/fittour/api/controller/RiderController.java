@@ -71,7 +71,7 @@ public class RiderController
     }
 
 
-    @JsonView({Views.RiderOutput.class})
+    @JsonView(Views.RiderOutput.class)
     @PutMapping("/riders/{riderID}/snowboard")
     RiderDto updateRiderSnowboard(@PathVariable int riderID, @RequestBody int snowboardID)
             throws NoRiderFoundException, NoSnowboardFoundException, EntityStateException
@@ -80,6 +80,13 @@ public class RiderController
         return RiderConverter.fromModel(
                 riderService.readById(riderID)
                         .orElseThrow(NoRiderFoundException::new));
+    }
+
+    @JsonView(Views.RiderOutput.class)
+    @DeleteMapping("/riders/{riderID}/snowboard")
+    void deleteRiderSnowboard(@PathVariable int riderID) throws NoRiderFoundException
+    {
+        riderService.deleteRiderSnowboard(riderID);
     }
 
 
