@@ -6,14 +6,11 @@ import cz.cvut.fit.tjv.fittour.api.dto.ContestDto;
 import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoContestFoundException;
 import cz.cvut.fit.tjv.fittour.business.ContestService;
+import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.domain.Contest;
-import cz.cvut.fit.tjv.fittour.domain.Rider;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 @RestController
 public class ContestController
@@ -36,7 +33,7 @@ public class ContestController
     @JsonView(Views.ContestOutput.class)
     @PostMapping("/contests")
     ContestDto newContest(@JsonView(Views.Public.class) @RequestBody ContestDto newContest)
-            throws ExpectedNullIDException
+            throws ExpectedNullIDException, NoContestFoundException, EntityStateException
     {
         if(newContest.getId() != null)
             throw new ExpectedNullIDException("Contest");
@@ -46,21 +43,33 @@ public class ContestController
                 .orElseThrow(NoContestFoundException::new));
     }
 
+    @JsonView(Views.ContestOutput.class)
     @GetMapping("/contests/{id}")
     ContestDto one(@PathVariable int id)
     {
-        return new ContestDto();
+        return ContestConverter.fromModel(
+                contestService.readById(id)
+                        .orElseThrow(NoContestFoundException::new));
     }
 
     @PutMapping("/contests/{id}")
-    ContestDto updateContest(@RequestBody ContestDto contestDto, @PathVariable int id)
+    ContestDto updateContest(@JsonView(Views.Public.class) @RequestBody ContestDto contestDto, @PathVariable int id)
+            throws NoContestFoundException
     {
-        return new ContestDto();
+        if(contestDto.getId() != null)
+            throw new ExpectedNullIDException("Contest");
+        contestDto.setId(id);
+        contestService.updateContestWithoutContestants(contestDto);
+        return ContestConverter.fromModel(
+                contestService.readById(id)
+                        .orElseThrow(NoContestFoundException::new));
     }
 
     @DeleteMapping("/contests/{id}")
-    void deleteContest(@PathVariable int id)
+    void deleteContest(@PathVariable int id) throws NoContestFoundException
     {
-
+        contestService.readById(id)
+                .orElseThrow(NoContestFoundException::new);
+        contestService.deleteById(id);
     }
 }

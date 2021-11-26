@@ -43,12 +43,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = {UpdatedIDException.class})
-    protected ResponseEntity<Object> handleUpdatedIDException(
-            RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(),
-                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
 
     @ExceptionHandler(value = {ExpectedNullIDException.class})
     protected ResponseEntity<Object> handleExpectedNullIDException(
@@ -56,7 +50,5 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, ex.getMessage(),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
-
-
 
 }

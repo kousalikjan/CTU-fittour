@@ -5,7 +5,6 @@ import cz.cvut.fit.tjv.fittour.api.converter.SnowboardConverter;
 import cz.cvut.fit.tjv.fittour.api.dto.SnowboardDto;
 import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
-import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;

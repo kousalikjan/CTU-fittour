@@ -6,7 +6,6 @@ import cz.cvut.fit.tjv.fittour.api.dto.RiderDto;
 import cz.cvut.fit.tjv.fittour.api.exception.ExpectedNullIDException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoRiderFoundException;
 import cz.cvut.fit.tjv.fittour.api.exception.NoSnowboardFoundException;
-import cz.cvut.fit.tjv.fittour.api.exception.UpdatedIDException;
 import cz.cvut.fit.tjv.fittour.business.EntityStateException;
 import cz.cvut.fit.tjv.fittour.business.RiderService;
 import cz.cvut.fit.tjv.fittour.domain.Rider;
@@ -59,7 +58,7 @@ public class RiderController
     @JsonView(Views.RiderOutput.class)
     @PutMapping("/riders/{id}")
     RiderDto updateRider(@JsonView(Views.Public.class) @RequestBody RiderDto riderDto, @PathVariable int id)
-            throws NoRiderFoundException, UpdatedIDException, NullPointerException
+            throws NoRiderFoundException
     {
         if(riderDto.getId() != null)
             throw new ExpectedNullIDException("Rider");
@@ -87,6 +86,8 @@ public class RiderController
     @DeleteMapping("/riders/{id}")
     void deleteRider(@PathVariable int id) throws NoRiderFoundException
     {
+        riderService.readById(id)
+                .orElseThrow(NoRiderFoundException::new);
         riderService.deleteRider(id);
     }
 
