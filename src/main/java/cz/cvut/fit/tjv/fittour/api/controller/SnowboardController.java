@@ -72,6 +72,13 @@ public class SnowboardController
                 .orElseThrow(NoSnowboardFoundException::new));
     }
 
+    @GetMapping("/snowboards/brand/{name}")
+    Collection<SnowboardDto> allOneBrand(@PathVariable String name)
+    {
+        return SnowboardConverter.fromModelMany(snowboardService.findByBrand(name));
+    }
+
+
     @DeleteMapping("/snowboards/{id}")
     void deleteSnowboard(@PathVariable int id) throws NoSnowboardFoundException
     {
