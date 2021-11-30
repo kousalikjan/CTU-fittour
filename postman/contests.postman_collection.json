@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "2cd29ade-1128-422c-acaa-85b3d38866d0",
+		"name": "contests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "contests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/contests",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date\": \"12.1.2021\",\r\n    \"discipline\": \"SLOPESTYLE\",\r\n    \"prizePool\": 12000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/contests",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/contests/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"prizePool\": 1000,\r\n    \"discipline\": \"FREESTYLE\",\r\n    \"date\": \"7.3.2020\",\r\n    \"contestants\": {\"id\": 1}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/contests/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/contests/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests/{id}/contestants",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "1",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/contests/2/contestants",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests",
+						"2",
+						"contestants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contests/{id}/contestants",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "1",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/contests/1/contestants",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contests",
+						"1",
+						"contestants"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

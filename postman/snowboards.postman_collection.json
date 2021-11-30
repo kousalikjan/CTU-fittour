@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "37284c68-9d38-4d5b-87ab-e1bfee3a52cb",
+		"name": "snowboards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "snowboards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/snowboards",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snowboards",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"Arbor\",\r\n    \"modelName\": \"Woods\",\r\n    \"profile\": \"CAMBER\",\r\n    \"flex\": 7,\r\n    \"price\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/snowboards",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snowboards/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/snowboards/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snowboards/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"Arbor\",\r\n    \"modelName\": \"Woods\",\r\n    \"flex\": 7,\r\n    \"price\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/snowboards/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snowboards/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/snowboards/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snowboards/brand/{name}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/snowboards/brand/burton",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"snowboards",
+						"brand",
+						"burton"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

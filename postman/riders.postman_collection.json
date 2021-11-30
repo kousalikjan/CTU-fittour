@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "b5df229e-ffce-49b0-aa5d-0dcf7a8df83e",
+		"name": "riders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "riders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/riders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jesper\",\r\n    \"surname\": \"Tjader\",\r\n    \"dateOfBirth\": \"12.12.1994\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/riders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/riders/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/riders/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/riders/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders/{id}/snowboard",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "1",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/riders/2/snowboard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders",
+						"2",
+						"snowboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "riders/{id}/snowboard",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/riders/3/snowboard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"riders",
+						"3",
+						"snowboard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
