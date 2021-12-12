@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class SnowboardRepositoryTests
 {
-    @Autowired
+    /*@Autowired
     SnowboardJpaRepository snowboardJpaRepository;
 
     @Test
@@ -33,5 +33,5 @@ public class SnowboardRepositoryTests
 
         snowboardJpaRepository.deleteAll();
         Assertions.assertThat(snowboardJpaRepository.findAll()).isEmpty();
-    }
+    }*/
 }
