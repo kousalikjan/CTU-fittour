@@ -17,7 +17,7 @@ build-gradle:
     script:
         - chmod +x gradlew
         - ./gradlew build -x test
-        - rm -f build/libs/server-*-plain.jar
+        - rm -f build/libs/fittour-*-plain.jar
     artifacts:
       paths:
         - build/libs/*.jar
