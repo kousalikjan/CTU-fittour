@@ -29,6 +29,7 @@ docker image:
       - docker build -t "$IMAGE_NAME" .
       - docker push "$IMAGE_NAME"
 
+
 deploy image:
     image: debian:buster
     stage: deploy
