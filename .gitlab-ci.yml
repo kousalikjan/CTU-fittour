@@ -9,6 +9,7 @@ variables:
 
 build-gradle:
     stage: build
+    image: amazoncorretto:16
     script:
         - chmod +x gradlew
         - ./gradlew build -x test
