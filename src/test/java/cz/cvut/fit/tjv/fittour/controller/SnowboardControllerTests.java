@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class SnowboardControllerTests
 {
-   /* @MockBean
+   @MockBean
     SnowboardService snowboardService;
 
     @Autowired
@@ -48,5 +48,5 @@ public class SnowboardControllerTests
 
 
     }
-*/
+
 }
