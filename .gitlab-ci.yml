@@ -9,11 +9,6 @@ variables:
 
 build-gradle:
     stage: build
-    except:
-        - java-syntax
-        - pre-DI
-        - DI-manual
-    image: amazoncorretto:17
     script:
         - chmod +x gradlew
         - ./gradlew build -x test
