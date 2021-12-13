@@ -1,5 +1,7 @@
 package cz.cvut.fit.tjv.fittour.controller;
 
+import cz.cvut.fit.tjv.fittour.business.ContestService;
+import cz.cvut.fit.tjv.fittour.business.RiderService;
 import cz.cvut.fit.tjv.fittour.business.SnowboardService;
 import cz.cvut.fit.tjv.fittour.domain.Snowboard;
 import org.hamcrest.Matchers;
@@ -23,8 +25,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class SnowboardControllerTests
 {
-   @MockBean
+    @MockBean
     SnowboardService snowboardService;
+
+    @MockBean
+    RiderService riderService;
+
+    @MockBean
+    ContestService contestServiceService;
 
     @Autowired
     MockMvc mockMvc;
