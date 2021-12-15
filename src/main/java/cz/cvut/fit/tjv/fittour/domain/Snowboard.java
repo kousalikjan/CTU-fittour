@@ -1,8 +1,22 @@
 package cz.cvut.fit.tjv.fittour.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import cz.cvut.fit.tjv.fittour.api.controller.Views;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity(name = "snowboard")
 public class Snowboard
 {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_snowboard")
+    @SequenceGenerator(name = "seq_snowboard", sequenceName = "seq_snowboard", initialValue = 1, allocationSize = 1)
+    private Integer id;
+
     private String brand;
     private String modelName;
     private String profile;
@@ -10,12 +24,21 @@ public class Snowboard
     private int price;
 
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "snowboard")
+    private Set<Rider> riders;
+
     public Snowboard()
     {
-
     }
 
-    public Snowboard(int id, String brand, String modelName, String profile, int flex, int price)
+    /**
+     * Saves given id in the instance.
+     *
+     * @param id given id; cannot be null
+     * @throws NullPointerException if the given id is null
+     */
+    public Snowboard(Integer id, String brand, String modelName, String profile, int flex, int price, Set<Rider> riders)
     {
         this.id = id;
         this.brand = brand;
@@ -23,11 +46,17 @@ public class Snowboard
         this.profile = profile;
         this.flex = flex;
         this.price = price;
+        this.riders = riders;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
     }
 
     public String getBrand()
@@ -78,5 +107,43 @@ public class Snowboard
     public void setPrice(int price)
     {
         this.price = price;
+    }
+
+
+
+    public Set<Rider> getRiders()
+    {
+        return riders;
+    }
+
+    public void setRiders(Set<Rider> riders)
+    {
+        this.riders = riders;
+    }
+
+    public void addRider(Rider rider)
+    {
+        riders.add(rider);
+    }
+
+    public void removeRider(Rider rider)
+    {
+        riders.remove(rider);
+    }
+
+    @PreRemove
+    private void preRemove()
+    {
+        for (Rider r: riders)
+            r.setSnowboard(null);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Snowboard{" +
+                "id=" + id +
+                ", riders=" + riders +
+                '}';
     }
 }
