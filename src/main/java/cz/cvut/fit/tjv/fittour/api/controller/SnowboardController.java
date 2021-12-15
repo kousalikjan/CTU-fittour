@@ -24,14 +24,14 @@ public class SnowboardController
 
     @JsonView(Views.Public.class)
     @GetMapping("/snowboards")
-    Collection<SnowboardDto> all()
+    public Collection<SnowboardDto> all()
     {
         return SnowboardConverter.fromModelMany(snowboardService.readAll());
     }
 
     @JsonView(Views.Public.class)
     @PostMapping("/snowboards")
-    SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
+    public SnowboardDto newUser(@RequestBody SnowboardDto newSnowboard)
             throws EntityStateException, NoSnowboardFoundException
     {
         if(newSnowboard.id != null)
@@ -46,7 +46,7 @@ public class SnowboardController
 
     @JsonView(Views.Public.class)
     @GetMapping("/snowboards/{id}")
-    SnowboardDto one(@PathVariable int id) throws NoSnowboardFoundException
+    public SnowboardDto one(@PathVariable int id) throws NoSnowboardFoundException
     {
         return SnowboardConverter.fromModel(
                 snowboardService.readById(id)
@@ -76,7 +76,7 @@ public class SnowboardController
 
 
     @DeleteMapping("/snowboards/{id}")
-    void deleteSnowboard(@PathVariable int id) throws NoSnowboardFoundException
+    public void deleteSnowboard(@PathVariable int id) throws NoSnowboardFoundException
     {
         snowboardService.readById(id)
                 .orElseThrow(NoSnowboardFoundException::new);
