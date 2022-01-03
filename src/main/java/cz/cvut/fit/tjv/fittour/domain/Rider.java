@@ -112,12 +112,9 @@ public class Rider
     @PreRemove
     private void PreRemove()
     {
-        if(contests != null)
-        {
-            for (var contest : contests)
-                contest.removeContestant(this);
-            contests = null;
-        }
+        for (var contest : contests)
+            contest.removeContestant(this);
+        contests = null;
     }
 
     @Override
