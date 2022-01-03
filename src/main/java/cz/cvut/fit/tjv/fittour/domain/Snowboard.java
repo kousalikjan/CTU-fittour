@@ -134,9 +134,8 @@ public class Snowboard
     @PreRemove
     private void preRemove()
     {
-        if(riders != null)
-            for (Rider r: riders)
-                r.setSnowboard(null);
+        for (Rider r: riders)
+            r.setSnowboard(null);
     }
 
     @Override

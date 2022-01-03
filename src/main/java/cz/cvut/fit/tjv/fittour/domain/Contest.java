@@ -101,12 +101,9 @@ public class Contest
     @PreRemove
     private void preRemove()
     {
-        if(contestants != null)
-        {
-            for (var rider : contestants)
-                rider.removeContest(this);
-            contestants = null;
-        }
+        for (var rider: contestants)
+            rider.removeContest(this);
+        contestants = null;
     }
 
 
