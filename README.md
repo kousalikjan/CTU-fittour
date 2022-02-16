@@ -1,4 +1,4 @@
-# FITTour | Snowboarding Database
+# fittour
 
 This is semestral project to the bi-tjv 2021 (java technology) course at CTU FIT. 
 
