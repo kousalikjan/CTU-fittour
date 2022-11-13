@@ -6,8 +6,6 @@ This is semestral project to the bi-tjv 2021 (java technology) course at CTU FIT
 
 This is a REST API implemented using Spring framework. It runs at `http://localhost:8080/`.
 
-There is a web-client dedicated to this project, link: https://gitlab.fit.cvut.cz/kousaja1/fittour-client
-
 ### Operations allowed
 
 **/snowboards** - *GET, POST*
